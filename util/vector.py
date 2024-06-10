@@ -1,18 +1,34 @@
 import math
 
+__all__ = [
+    "Vector3"
+]
+
 
 class Vector3:
     @property
     def x(self) -> float:
         return self._x
 
+    @x.setter
+    def x(self, value: float) -> None:
+        self._x = value
+
     @property
     def y(self) -> float:
         return self._y
 
+    @y.setter
+    def y(self, value: float) -> None:
+        self._y = value
+
     @property
     def z(self) -> float:
         return self._z
+
+    @z.setter
+    def z(self, value: float) -> None:
+        self._z = value
 
     @property
     def magnitude(self) -> float:

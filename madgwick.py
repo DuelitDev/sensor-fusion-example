@@ -1,8 +1,6 @@
 import math
 import time
-from sensor import Sensor
-from quaternion import Quaternion
-from vector import Vector3
+from util import *
 
 
 class MadgwickFilter:

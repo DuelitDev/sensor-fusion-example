@@ -2,7 +2,12 @@ import socket
 import struct
 import threading
 
+__all__ = [
+    "Sensor"
+]
 
+
+# Arduino Serial Sensor app
 class Sensor:
     ax = property(fget=lambda self: self._ax)
     ay = property(fget=lambda self: self._ay)
