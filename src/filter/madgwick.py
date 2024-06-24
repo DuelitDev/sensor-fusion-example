@@ -17,8 +17,8 @@ class MadgwickFilter(Filter):
     def update(self, a: Vector3, g: Vector3, m: Vector3):
         q = self._quaternion
         dt = self._delta()
-        a.normalize()
-        m.normalize()
+        if not a.normalize() or not m.normalize():
+            return False
         q_dot = .5 * q * Quaternion(0, g.x, g.y, g.z)
         h = q * Quaternion(0, m.x, m.y, m.z) * ~q
         b = math.sqrt(h.x ** 2 + h.y ** 2)
