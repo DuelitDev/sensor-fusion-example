@@ -3,7 +3,7 @@ from src.filter import *
 from src.util import *
 
 MODEL_NAME = "model/plane.obj"
-MODEL_TEXTURE = "model/plane.tg"
+MODEL_TEXTURE = "model/plane.tga"
 
 
 sensor = Sensor()
