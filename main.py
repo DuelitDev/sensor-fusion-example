@@ -2,6 +2,9 @@ from ursina import *
 from src.filter import *
 from src.util import *
 
+MODEL_NAME = "model/plane.obj"
+MODEL_TEXTURE = "model/plane.tg"
+
 
 sensor = Sensor()
 sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.YXZ)
@@ -13,9 +16,9 @@ camera.orthographic = True
 camera.fov = 10
 camera.position = (0, 0, -10)
 # Create entities & UI elements
-model1 = Entity(model="model/plane", texture="model/plane.tga",
+model1 = Entity(model=MODEL_NAME, texture=MODEL_TEXTURE,
                 scale=0.3, position=(-4, 0, 0))
-model2 = Entity(model="model/plane", texture="model/plane.tga",
+model2 = Entity(model=MODEL_NAME, texture=MODEL_TEXTURE,
                 scale=0.3, position=(4, 0, 0))
 xyz1 = Text(text="", scale=0.03)
 xyz2 = Text(text="", scale=0.03)
