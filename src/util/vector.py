@@ -31,14 +31,6 @@ class Vector3:
         self._z = value
 
     @property
-    def v(self) -> tuple[float, float, float]:
-        return self._x, self._y, self._z
-
-    @v.setter
-    def v(self, value: tuple[float, float, float]):
-        self._x, self._y, self._z = value
-
-    @property
     def magnitude(self) -> float:
         return math.sqrt(self._x ** 2 + self._y ** 2 + self._z ** 2)
 

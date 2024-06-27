@@ -40,14 +40,6 @@ class Quaternion:
         self._z = value
 
     @property
-    def q(self) -> tuple[float, float, float, float]:
-        return self._w, self._x, self._y, self._z
-
-    @q.setter
-    def q(self, value: tuple[float, float, float, float]):
-        self._w, self._x, self._y, self._z = value
-
-    @property
     def euler_angles(self) -> Vector3:
         w, x, y, z = self._w, self._x, self._y, self._z
         roll = math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
