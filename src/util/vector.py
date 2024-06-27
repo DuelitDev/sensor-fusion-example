@@ -34,12 +34,6 @@ class Vector3:
     def magnitude(self) -> float:
         return math.sqrt(self._x ** 2 + self._y ** 2 + self._z ** 2)
 
-    @property
-    def normalized(self) -> "Vector3":
-        v = Vector3(self._x, self._y, self._z)
-        v.normalize()
-        return v
-
     def __init__(self, x: float, y: float, z: float):
         self._x, self._y, self._z = x, y, z
 

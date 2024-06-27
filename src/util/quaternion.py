@@ -48,12 +48,6 @@ class Quaternion:
         yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
         return Vector3(roll, pitch, yaw)
 
-    @property
-    def normalized(self) -> "Quaternion":
-        q = Quaternion(self._w, self._x, self._y, self._z)
-        q.normalize()
-        return q
-
     def __init__(self, w: float, x: float, y: float, z: float):
         self._w, self._x, self._y, self._z = w, x, y, z
 
