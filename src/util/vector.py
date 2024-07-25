@@ -1,11 +1,16 @@
 import math
+from pyfieldlib import FieldMeta, fields
 
 __all__ = [
     "Vector3"
 ]
 
 
-class Vector3:
+class Vector3(metaclass=FieldMeta):
+    @fields
+    def zero(self) -> "Vector3":
+        return Vector3(0.0, 0.0, 0.0)
+
     @property
     def x(self) -> float:
         return self._x
@@ -52,6 +57,9 @@ class Vector3:
     def __radd__(self, other: "Vector3 | int | float") -> "Vector3":
         return self.__add__(other)
 
+    def __neg__(self) -> "Vector3":
+        return Vector3(-self._x, -self._y, -self._z)
+
     def __sub__(self, other: "Vector3 | int | float") -> "Vector3":
         if isinstance(other, Vector3):
             return Vector3(self._x - other.x,
@@ -81,6 +89,24 @@ class Vector3:
 
     def __rmul__(self, other: "Vector3 | int | float") -> "Vector3":
         return self.__mul__(other)
+
+    def __truediv__(self, other: "Vector3 | int | float") -> "Vector3":
+        if isinstance(other, Vector3):
+            return Vector3(self._x / other.x,
+                           self._y / other.y,
+                           self._z / other.z)
+        elif isinstance(other, int) or isinstance(other, float):
+            return Vector3(self._x / other, self._y / other, self._z / other)
+        raise TypeError
+
+    def __rtruediv__(self, other: "Vector3 | int | float") -> "Vector3":
+        if isinstance(other, Vector3):
+            return Vector3(other.x / self._x,
+                           other.y / self._y,
+                           other.z / self._z)
+        elif isinstance(other, int) or isinstance(other, float):
+            return Vector3(other / self._x, other / self._y, other / self._z)
+        raise TypeError
 
     def normalize(self) -> bool:
         magnitude = self.magnitude
