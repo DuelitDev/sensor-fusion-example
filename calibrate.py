@@ -8,12 +8,14 @@ SAMPLE = 1000
 
 
 sensor = SerialSensor(
-    filter_=FusionAHRS(
-        FusionAHRSSettings(
+    filter_=FusionFilter(
+        FusionFilterOptions(
             gain=0.0,
+            initial_gain=0.0,
+            initial_period=0.0,
             gyr_range=0.0,
-            acc_reject=0.0,
-            mag_reject=0.0,
+            acc_rejection=0.0,
+            mag_rejection=0.0,
             recovery_period=0)),
     port="/dev/cu.usbserial-0001"
 )
