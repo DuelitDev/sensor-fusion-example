@@ -1,15 +1,12 @@
 import math
-from pyfieldlib import FieldMeta, fields
 
 __all__ = [
     "Vector3"
 ]
 
 
-class Vector3(metaclass=FieldMeta):
-    @fields
-    def zero(self) -> "Vector3":
-        return Vector3(0.0, 0.0, 0.0)
+class Vector3:
+    zero: "Vector3"
 
     @property
     def x(self) -> float:
@@ -108,7 +105,21 @@ class Vector3(metaclass=FieldMeta):
             return Vector3(other / self._x, other / self._y, other / self._z)
         raise TypeError
 
-    def normalize(self) -> bool:
+    def __matmul__(self, other: "Vector3") -> float:
+        return self.dot(other)
+
+    def __rmatmul__(self, other: "Vector3") -> float:
+        return other.dot(self)
+
+    def dot(self, other: "Vector3") -> float:
+        return self._x * other.x + self.y * other.y + self.z * other.z
+
+    def cross(self, other: "Vector3") -> "Vector3":
+        return Vector3(self.y * other.z - self.z * other.y,
+                       self.z * other.x - self.x * other.z,
+                       self.x * other.y - self.y * other.x)
+
+    def normalized(self) -> bool:
         magnitude = self.magnitude
         if not magnitude:
             return False
@@ -116,3 +127,14 @@ class Vector3(metaclass=FieldMeta):
         self._y /= magnitude
         self._z /= magnitude
         return True
+
+    def normalize(self) -> "Vector3":
+        magnitude = self.magnitude
+        if not magnitude:
+            return Vector3.zero
+        return Vector3(self._x / magnitude,
+                       self._y / magnitude,
+                       self._z / magnitude)
+
+
+Vector3.zero = Vector3(0.0, 0.0, 0.0)

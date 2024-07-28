@@ -1,16 +1,14 @@
 import math
 from src.util.vector import Vector3
-from pyfieldlib import FieldMeta, fields
 
 __all__ = [
     "Quaternion"
 ]
 
 
-class Quaternion(metaclass=FieldMeta):
-    @fields
-    def zero(self) -> "Quaternion":
-        return Quaternion(1.0, 0.0, 0.0, 0.0)
+class Quaternion:
+    zero: "Quaternion"
+    identity: "Quaternion"
 
     @property
     def w(self) -> float:
@@ -107,7 +105,8 @@ class Quaternion(metaclass=FieldMeta):
                               other + self._z)
         raise TypeError
 
-    def __mul__(self, other: "Quaternion | int | float") -> "Quaternion":
+    def __mul__(self, other: "Quaternion | Vector3 | int | float"
+                ) -> "Quaternion":
         if isinstance(other, Quaternion):
             w1, x1, y1, z1 = self._w, self._x, self._y, self._z
             w2, x2, y2, z2 = other.w, other.x, other.y, other.z
@@ -115,6 +114,13 @@ class Quaternion(metaclass=FieldMeta):
                               w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
                               w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2,
                               w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2)
+        if isinstance(other, Vector3):
+            qw, qx, qy, qz = self._w, self._x, self._y, self._z
+            vx, vy, vz = other.x, other.y, other.z
+            return Quaternion(-qx * vx - qy * vy - qz * vz,
+                              qw * vx + qy * vz - qz * vy,
+                              qw * vy - qx * vz + qz * vx,
+                              qw * vz + qx * vy - qy * vx)
         elif isinstance(other, int) or isinstance(other, float):
             return Quaternion(self._w * other,
                               self._x * other,
@@ -123,7 +129,8 @@ class Quaternion(metaclass=FieldMeta):
         else:
             raise ValueError
 
-    def __rmul__(self, other: "Quaternion | int | float") -> "Quaternion":
+    def __rmul__(self, other: "Quaternion | Vector3 | int | float"
+                 ) -> "Quaternion":
         return self.__mul__(other)
 
     def __truediv__(self, other: "Quaternion | int | float") -> "Quaternion":
@@ -144,12 +151,12 @@ class Quaternion(metaclass=FieldMeta):
 
     def __rtruediv__(self, other: "Quaternion | int | float") -> "Quaternion":
         if isinstance(other, Quaternion):
-            w1, x1, y1, z1 = other.w, other.x, other.y, other.z
-            w2, x2, y2, z2 = self._w, self._x, self._y, self._z
-            return Quaternion(w1 * w2 - x1 * -x2 - y1 * -y2 - z1 * -z2,
-                              w1 * -x2 + x1 * w2 + y1 * -z2 - z1 * -y2,
-                              w1 * -y2 - x1 * -z2 + y1 * w2 + z1 * -x2,
-                              w1 * -z2 + x1 * -y2 - y1 * -x2 + z1 * w2)
+            w1, x1, y1, z1 = self._w, self._x, self._y, self._z
+            w2, x2, y2, z2 = other.w, other.x, other.y, other.z
+            return Quaternion(w2 * w1 - x2 * -x1 - y2 * -y1 - z2 * -z1,
+                              w2 * -x1 + x2 * w1 + y2 * -z1 - z2 * -y1,
+                              w2 * -y1 - x2 * -z1 + y2 * w1 + z2 * -x1,
+                              w2 * -z1 + x2 * -y1 - y2 * -x1 + z2 * w1)
         elif isinstance(other, int) or isinstance(other, float):
             return Quaternion(other / self._w,
                               other / self._x,
@@ -158,7 +165,7 @@ class Quaternion(metaclass=FieldMeta):
         else:
             raise ValueError
 
-    def normalize(self) -> bool:
+    def normalized(self) -> bool:
         magnitude = math.sqrt(self._w ** 2 +
                               self._x ** 2 +
                               self._y ** 2 +
@@ -170,3 +177,19 @@ class Quaternion(metaclass=FieldMeta):
         self._y /= magnitude
         self._z /= magnitude
         return True
+
+    def normalize(self) -> "Quaternion":
+        magnitude = math.sqrt(self._w ** 2 +
+                              self._x ** 2 +
+                              self._y ** 2 +
+                              self._z ** 2)
+        if not magnitude:
+            return Quaternion.zero
+        return Quaternion(self._w / magnitude,
+                          self._x / magnitude,
+                          self._y / magnitude,
+                          self._z / magnitude)
+
+
+Quaternion.zero     = Quaternion(0.0, 0.0, 0.0, 0.0)
+Quaternion.identity = Quaternion(1.0, 0.0, 0.0, 0.0)
