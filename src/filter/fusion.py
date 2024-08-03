@@ -1,10 +1,10 @@
-from math import sin, radians as rad
+from math import radians as rad, sin
 from src.filter.core import Filter
 from src.util import Quaternion, Vector3
 
 __all__ = [
-    "FusionFilterOptions",
-    "FusionFilter"
+    "FusionFilter",
+    "FusionFilterOptions"
 ]
 
 
@@ -14,7 +14,7 @@ class FusionFilterOptions:
                  initial_gain:    float = 10.0,
                  initial_period:  float = 3.0,
                  acc_rejection:   float = 10.0,
-                 gyr_range:       float = 0.0,
+                 gyr_range:       float = 500.0,
                  mag_rejection:   float = 10.0,
                  recovery_period: int   = 600):
         def rejection(v: float) -> float:
@@ -194,7 +194,7 @@ class FusionFilter(Filter):
                 self._mag_recovery_trigger,
                 0, self._recovery_period)
             if mag_ignored:
-                hmf = Vector3.zero
+                mhf = Vector3.zero
         ahg = g * rad(0.5) + (ahf + mhf) * self._ramped_gain
         self._quaternion += self._quaternion * (ahg * dt)
         self._quaternion.normalized()

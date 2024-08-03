@@ -1,2 +1,2 @@
-from src.filter.madgwick import *
-from src.filter.fusion import *
+from src.filter.fusion import FusionFilter, FusionFilterOptions
+from src.filter.madgwick import MadgwickFilter

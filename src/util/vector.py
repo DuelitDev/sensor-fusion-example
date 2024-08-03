@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
 __all__ = [
     "Vector3"
@@ -34,7 +34,7 @@ class Vector3:
 
     @property
     def magnitude(self) -> float:
-        return math.sqrt(self._x ** 2 + self._y ** 2 + self._z ** 2)
+        return sqrt(self._x ** 2 + self._y ** 2 + self._z ** 2)
 
     def __init__(self, x: float, y: float, z: float):
         self._x, self._y, self._z = x, y, z

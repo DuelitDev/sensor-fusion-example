@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from enum import Enum
-from threading import Thread
 from src.filter.core import Filter
 from src.util import Quaternion, Vector3
+from threading import Thread
 
 __all__ = [
     "Order",

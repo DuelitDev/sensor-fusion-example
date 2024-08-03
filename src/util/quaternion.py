@@ -1,4 +1,4 @@
-import math
+from math import asin, atan2, sqrt
 from src.util.vector import Vector3
 
 __all__ = [
@@ -45,10 +45,10 @@ class Quaternion:
     @property
     def euler_angles(self) -> Vector3:
         w, x, y, z = self._w, self._x, self._y, self._z
-        roll = math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
-        pitch = math.asin(1 if (i := 2 * (w * y - z * x)) > 1
-                          else (-1 if i < -1 else i))
-        yaw = math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
+        roll = atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
+        pitch = asin(1 if (i := 2 * (w * y - z * x)) > 1
+                     else (-1 if i < -1 else i))
+        yaw = atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
         return Vector3(roll, pitch, yaw)
 
     def __init__(self, w: float, x: float, y: float, z: float):
@@ -151,12 +151,7 @@ class Quaternion:
 
     def __rtruediv__(self, other: "Quaternion | int | float") -> "Quaternion":
         if isinstance(other, Quaternion):
-            w1, x1, y1, z1 = self._w, self._x, self._y, self._z
-            w2, x2, y2, z2 = other.w, other.x, other.y, other.z
-            return Quaternion(w2 * w1 - x2 * -x1 - y2 * -y1 - z2 * -z1,
-                              w2 * -x1 + x2 * w1 + y2 * -z1 - z2 * -y1,
-                              w2 * -y1 - x2 * -z1 + y2 * w1 + z2 * -x1,
-                              w2 * -z1 + x2 * -y1 - y2 * -x1 + z2 * w1)
+            return other.__rtruediv__(self)
         elif isinstance(other, int) or isinstance(other, float):
             return Quaternion(other / self._w,
                               other / self._x,
@@ -166,10 +161,10 @@ class Quaternion:
             raise ValueError
 
     def normalized(self) -> bool:
-        magnitude = math.sqrt(self._w ** 2 +
-                              self._x ** 2 +
-                              self._y ** 2 +
-                              self._z ** 2)
+        magnitude = sqrt(self._w ** 2 +
+                         self._x ** 2 +
+                         self._y ** 2 +
+                         self._z ** 2)
         if not magnitude:
             return False
         self._w /= magnitude
@@ -179,10 +174,10 @@ class Quaternion:
         return True
 
     def normalize(self) -> "Quaternion":
-        magnitude = math.sqrt(self._w ** 2 +
-                              self._x ** 2 +
-                              self._y ** 2 +
-                              self._z ** 2)
+        magnitude = sqrt(self._w ** 2 +
+                         self._x ** 2 +
+                         self._y ** 2 +
+                         self._z ** 2)
         if not magnitude:
             return Quaternion.zero
         return Quaternion(self._w / magnitude,
