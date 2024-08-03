@@ -1,4 +1,3 @@
-from time import sleep
 from serial import Serial
 from src.filter.core import Filter
 from src.sensor.core import Sensor
@@ -51,7 +50,6 @@ class SerialSensor(Sensor):
                     self._set_gyr_from_opt(gx, gy, gz)
                     self._set_mag_from_opt(mx, my, mz)
                     self._filter.update(self.av, self.gv, self.mv)
-                    sleep(0.001)
                 except UnicodeDecodeError:
                     pass
                 except ValueError:
