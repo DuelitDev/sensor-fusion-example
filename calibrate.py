@@ -3,24 +3,16 @@ from src.filter import *
 from src.sensor import *
 
 
-# MPU2950
+filter_ = FusionFilter(FusionFilterOptions())
+sensor = UDPSensor(filter_=filter_, address="0.0.0.0", port=8888)
+sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.YXZ)
+sensor.set_invert(ax=True, ay=True, gz=True)
+# sensor = SerialSensor(filter_=filter_, port="/dev/cu.usbserial-0001")
+# sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.XYZ)
+# sensor.set_invert(ax=True, ay=True, gz=True)
+
+
 SAMPLE = 1000
-
-
-sensor = SerialSensor(
-    filter_=FusionFilter(
-        FusionFilterOptions(
-            gain=0.0,
-            initial_gain=0.0,
-            initial_period=0.0,
-            gyr_range=0.0,
-            acc_rejection=0.0,
-            mag_rejection=0.0,
-            recovery_period=0)),
-    port="/dev/cu.usbserial-0001"
-)
-sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.XYZ)
-sensor.set_invert(ax=True, ay=True)
 avl, gvl, mvl = [], [], []
 
 
@@ -55,12 +47,6 @@ cmz = -(max(map(lambda v: v.z, mvl)) + min(map(lambda v: v.z, mvl))) / 2
 
 
 print("Calibration values:")
-print(f"AX: {cax:12.6f}")
-print(f"AY: {cay:12.6f}")
-print(f"AZ: {caz:12.6f}")
-print(f"GX: {cgx:12.6f}")
-print(f"GY: {cgy:12.6f}")
-print(f"GZ: {cgz:12.6f}")
-print(f"MX: {cmx:12.6f}")
-print(f"MY: {cmy:12.6f}")
-print(f"MZ: {cmz:12.6f}")
+print(f"ax={cax:.6f}, ay={cay:.6f}, az={caz:.6f}")
+print(f"gx={cgx:.6f}, gy={cgy:.6f}, gz={cgz:.6f}")
+print(f"mx={cmx:.6f}, my={cmy:.6f}, mz={cmz:.6f}")
