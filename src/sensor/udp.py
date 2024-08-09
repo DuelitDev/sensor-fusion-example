@@ -12,9 +12,9 @@ __all__ = [
 # Arduino Serial Sensor app
 class UDPSensor(Sensor):
     def __init__(self, filter_: Filter, address: str, port: int):
-        super().__init__(filter_)
         self._sock = socket(AF_INET, SOCK_DGRAM)
         self._sock.bind((address, port))
+        super().__init__(filter_)
 
     def _update(self):
         while True:
