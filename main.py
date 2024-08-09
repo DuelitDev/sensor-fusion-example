@@ -24,7 +24,7 @@ sensor.set_calibrate(
 
 
 app = Ursina()
-model = Entity(model="plane.blend", scale=(-0.5, -0.5, 0.5))
+model = Entity(model="resources/plane.obj", scale=(-0.5, -0.5, 0.5))
 
 
 def update():
