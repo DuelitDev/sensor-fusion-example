@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from enum import Enum
-from src.filter.core import Filter
-from src.util import Quaternion, Vector3
+from ins.filter.core import Filter
+from ins.util import Quaternion, Vector3
 from threading import Thread
 
 __all__ = [

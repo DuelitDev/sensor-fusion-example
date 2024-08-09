@@ -1,6 +1,6 @@
 from math import degrees as deg
-from src.filter import *
-from src.sensor import *
+from ins.filter import *
+from ins.sensor import *
 from ursina import *
 
 

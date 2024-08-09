@@ -1,8 +1,8 @@
 from math import degrees as deg
 from struct import unpack
 from socket import AF_INET, SOCK_DGRAM, socket
-from src.filter.core import Filter
-from src.sensor.core import Sensor
+from ins.filter.core import Filter
+from ins.sensor.core import Sensor
 
 __all__ = [
     "UDPSensor"

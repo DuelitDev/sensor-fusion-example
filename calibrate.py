@@ -1,6 +1,6 @@
 from time import sleep
-from src.filter import *
-from src.sensor import *
+from ins.filter import *
+from ins.sensor import *
 
 
 filter_ = FusionFilter(FusionFilterOptions())

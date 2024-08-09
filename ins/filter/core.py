@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from src.util import Quaternion, Vector3
+from ins.util import Quaternion, Vector3
 from time import time
 
 __all__ = [

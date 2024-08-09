@@ -1,6 +1,6 @@
 from math import sqrt
-from src.filter.core import Filter
-from src.util import Quaternion, Vector3
+from ins.filter.core import Filter
+from ins.util import Quaternion, Vector3
 
 __all__ = [
     "MadgwickFilter"

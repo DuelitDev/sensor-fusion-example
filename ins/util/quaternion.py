@@ -1,5 +1,5 @@
 from math import asin, atan2, sqrt
-from src.util.vector import Vector3
+from ins.util.vector import Vector3
 
 __all__ = [
     "Quaternion"

@@ -1,6 +1,6 @@
 from serial import Serial
-from src.filter.core import Filter
-from src.sensor.core import Sensor
+from ins.filter.core import Filter
+from ins.sensor.core import Sensor
 
 __all__ = [
     "SerialSensor"
