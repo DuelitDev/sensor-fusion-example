@@ -7,7 +7,8 @@ filter_ = FusionFilter(FusionFilterOptions())
 sensor = UDPSensor(filter_=filter_, address="0.0.0.0", port=8888)
 sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.YXZ)
 sensor.set_invert(ax=True, ay=True, gz=True)
-# sensor = SerialSensor(filter_=filter_, port="/dev/cu.usbserial-0001")
+
+# sensor = SerialSensor(filter_=filter_, port="COM3")
 # sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.XYZ)
 # sensor.set_invert(ax=True, ay=True, gz=True)
 
