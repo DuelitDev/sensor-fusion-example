@@ -1,3 +1,11 @@
+# This file is part of xioTechnologies/Fusion, licensed under the MIT License.
+# See the LICENSE file in the project root for more information.
+#
+# Copyright (c) 2024 DuelitDev, dlgur
+#
+# Modifications made by DuelitDev and dlgur in 2024.
+# Copyright (c) 2021 x-io Technologies
+
 from math import radians as rad, sin
 from ins.filter.core import Filter
 from ins.util import Quaternion, Vector3
