@@ -1,3 +1,11 @@
+# This file is part of hideakitai/MPU9250, licensed under the MIT License.
+# See the LICENSE file in the project root for more information.
+#
+# Copyright (c) 2024 DuelitDev, dlgur
+#
+# Modifications made by DuelitDev and dlgur in 2024.
+# Copyright (c) 2018 Hideaki Tai
+
 from math import sqrt
 from ins.filter.core import Filter
 from ins.util import Quaternion, Vector3
