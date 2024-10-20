@@ -6,11 +6,18 @@ from ins.sensor import *
 filter_ = FusionFilter(FusionFilterOptions())
 sensor = UDPSensor(filter_=filter_, address="0.0.0.0", port=8888)
 sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.YXZ)
-sensor.set_invert(ax=True, ay=True, gz=True)
-
+sensor.set_invert(
+    ax=True,  ay=True,  az=False,
+    gx=False, gy=False, gz=True,
+    mx=False, my=False, mz=False
+)
 # sensor = SerialSensor(filter_=filter_, port="COM3")
 # sensor.set_order(a=Order.YXZ, g=Order.YXZ, m=Order.XYZ)
-# sensor.set_invert(ax=True, ay=True, gz=True)
+# sensor.set_invert(
+#     ax=True,  ay=True,  az=False,
+#     gx=False, gy=False, gz=True,
+#     mx=False, my=False, mz=False
+# )
 
 
 SAMPLE = 1000
